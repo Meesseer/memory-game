@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './Game.css';
 
-const ICONS = ['🎯', '🧠', '🌟', '💡'];
+const ICONS = ['🎯', '🧠', '🌟', '💡', '🔥', '🌈', '🚀', '🐶'];
+
 
 function shuffleArray(array) {
   return [...array].sort(() => Math.random() - 0.5);
 }
 
-function Game({ setGameWon }) {
+function Game({ setGameWon, setTimeTaken }) {
   const [tiles, setTiles] = useState([]);
   const [flippedIndices, setFlippedIndices] = useState([]);
+  const [seconds, setSeconds] = useState(0);
+  const [timerActive, setTimerActive] = useState(true);
 
   useEffect(() => {
     // Initialize tiles
@@ -22,6 +25,9 @@ function Game({ setGameWon }) {
       index,
     }));
     setTiles(initialTiles);
+    setTiles(initialTiles);
+    setSeconds(0); 
+    setTimerActive(true);
   }, []);
 
   const handleClick = (index) => {
@@ -56,13 +62,27 @@ function Game({ setGameWon }) {
 
   useEffect(() => {
     if (tiles.length > 0 && tiles.every(tile => tile.isMatched)) {
+      setTimerActive(false);
       setTimeout(() => {
+        setTimeTaken(seconds)
         setGameWon(true);
       }, 500);
     }
   }, [tiles]);
+
+  useEffect(() => {
+    let interval;
+    if (timerActive) {
+      interval = setInterval(() => {
+        setSeconds(prev => prev + 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [timerActive]);
   
   return (
+    <div>
+    <p>⏱ Time: {seconds} sec</p>
     <div className="game-board" style={{ gridTemplateColumns: 'repeat(4, 1fr)' }}>
       {tiles.map((tile, index) => (
         <div
@@ -74,6 +94,7 @@ function Game({ setGameWon }) {
           {tile.isFlipped || tile.isMatched ? tile.icon : '?'}
         </div>
       ))}
+    </div>
     </div>
   );
 }

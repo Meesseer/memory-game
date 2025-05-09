@@ -1,23 +1,37 @@
 .game-board {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    width: 100%;
+    gap: 10px;
+    width: 90%;
     max-width: 600px;
     margin: 20px auto;
     padding: 10px;
   }
   
   .tile {
-    aspect-ratio: 1 / 1; 
+    aspect-ratio: 1 / 1;
     background-color: blue;
     color: white;
-    font-size: 2rem;
-    border-radius: 8px;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: 0.3s;
+    transition: transform 0.2s ease;
+  }
+  
+  .tile:hover {
+    transform: scale(1.05);
+  }
+  
+  @media (max-width: 480px) {
+    .game-board {
+      gap: 8px;
+    }
+  
+    .tile {
+      font-size: clamp(1.2rem, 6vw, 2rem);
+    }
   }
   

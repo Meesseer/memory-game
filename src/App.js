@@ -7,6 +7,7 @@ import { useState } from 'react';
 function App() {
   const [gameStatus, setGameStatus] = useState(false);
   const [gameWon, setGameWon] = useState(false);
+  const [timeTaken, setTimeTaken] = useState(0);
 
   const resetGame = () => {
     setGameWon(false);
@@ -18,11 +19,11 @@ function App() {
       <header className="App-header">
         Let's Test Your Memory
         {gameWon ? (
-          <Win playAgain={resetGame} />
+          <Win playAgain={resetGame} timeTaken={timeTaken}/>
         ) : gameStatus ? (
-          <Game setGameWon={setGameWon} />
+          <Game setGameWon={setGameWon} setTimeTaken={setTimeTaken} />
         ) : (
-          <Intro setGameStatus={setGameStatus} />
+          <Intro setGameStatus={setGameStatus}/>
         )}
       </header>
     </div>
