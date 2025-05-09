@@ -1,0 +1,23 @@
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px;
+  }
+  
+  .tile {
+    aspect-ratio: 1 / 1; 
+    background-color: blue;
+    color: white;
+    font-size: 2rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
